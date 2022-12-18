@@ -1,3 +1,10 @@
+# TODO
+
+1. :white_check_mark: fix requirements
+2. add auto configuration script
+3. add testing metrics scripts (latency, FPS)
+4. deploy to NVIDIA Jetson Nano
+
 # Lanenet-Lane-Detection (pytorch version)
   
 [中文版](https://github.com/IrohXu/lanenet-lane-detection-pytorch/blob/main/CHINESE_README.md)  
