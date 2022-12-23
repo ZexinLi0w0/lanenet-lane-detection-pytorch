@@ -13,6 +13,8 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 import cv2
+from thop import profile
+from thop import clever_format
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -81,12 +83,18 @@ def test():
     img = preprocess(img_path, data_transform)
     img = data_transfer(img)
 
+    # FLOPS
+    macs, params = profile(model, inputs=(img, ))
+    macs, params = clever_format([macs, params], "%.3f")
+    print('FLOPS: ', macs)
+
     # forward
-    outputs = inference(model, img)
-    # begin = time.time()
-    # outputs = model(img)
-    # end = time.time()
-    # print('Inference time: ', end-begin)
+    begin = time.time()
+    for i in range(args.test_num):
+        outputs = inference(model, img)
+    end = time.time()
+    print("Elpaed time: ", end - begin)
+
 
     # save output
     '''
